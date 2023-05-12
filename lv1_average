@@ -10,11 +10,11 @@ arr의 원소는 -10,000 이상 10,000 이하인 정수입니다.
 
 class Solution {
     public double solution(int[] arr) {
-        double answer = 0;
-        for(double d : arr){
-            answer += d;
+        double answer = 0; //초기화
+        for(double d : arr){ //향상for문으로 arr[]원소들을 각각 double형인 d변수로 가져옴
+            answer += d; //answer변수에 d들을 더해서 담음(answer == d의 총합계)
         }
         
-        return answer/arr.length;
+        return answer/arr.length; // (answer/ arr의 원소 갯수) -> 평균값 반환
     }
 }
