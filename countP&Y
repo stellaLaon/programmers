@@ -1,0 +1,31 @@
+/*
+문자열 내 p와 y의 개수
+문제 설명
+대문자와 소문자가 섞여있는 문자열 s가 주어집니다. s에 'p'의 개수와 'y'의 개수를 비교해 같으면 True, 다르면 False를 return 하는 solution를 완성하세요. 'p', 'y' 모두 하나도 없는 경우는 항상 True를 리턴합니다. 단, 개수를 비교할 때 대문자와 소문자는 구별하지 않습니다.
+
+예를 들어 s가 "pPoooyY"면 true를 return하고 "Pyy"라면 false를 return합니다.
+
+제한사항
+문자열 s의 길이 : 50 이하의 자연수
+문자열 s는 알파벳으로만 이루어져 있습니다.
+*/
+
+import java.util.*;
+
+class Solution {
+    boolean solution(String s) {
+        //p와 y의 갯수를 세아릴 변수 초기화
+        int cntP =0; int cntY =0; 
+        //향상for문으로 문자열s를 소문자로 전체 치환한 후 
+        //Char형의 배열로 변환한 각 요소를 char형 변수인 ch에 할당
+        for(char ch : s.toLowerCase().toCharArray()){ 
+            if(ch == 'p'){ //ch변수가 p와 일치하면
+                cntP++; //카운트 증가
+            }else if(ch == 'y'){ //ch변수가 y와 일치하면
+                cntY++; //카운트 증가
+            }
+        }
+        //카운트한 두 변수의 갯수가 일치하면 true를, 미일치하면 false를 반환
+        return cntP == cntY ? true : false;
+    }
+}
