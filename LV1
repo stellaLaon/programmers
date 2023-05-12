@@ -9,8 +9,9 @@ num은 int 범위의 정수입니다.
 */
 class Solution {
     public String solution(int num) {
+        //n을 2로 나눈 나머지가 0인게 ? 참이면 짝수이므로 Even : 거짓이면 홀수이므로 Odd 반환
         return num%2==0 ? "Even" : "Odd";
-        /*
+        /* 같은걸 3항연산자가 아닌 if문으로 작성
         String answer = "";
         if(num%2==0){
           answer = Even;
