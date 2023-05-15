@@ -1,0 +1,66 @@
+/*
+약수의 개수와 덧셈
+문제 설명
+두 정수 left와 right가 매개변수로 주어집니다. left부터 right까지의 모든 수들 중에서, 약수의 개수가 짝수인 수는 더하고, 약수의 개수가 홀수인 수는 뺀 수를 return 하도록 solution 함수를 완성해주세요.
+
+제한사항
+1 ≤ left ≤ right ≤ 1,000
+
+입출력 예 설명
+입출력 예 #1
+
+다음 표는 13부터 17까지의 수들의 약수를 모두 나타낸 것입니다.
+수	약수	           약수의 개수
+13	1,13	          2
+14	1, 2, 7, 14	    4
+15	1, 3, 5, 15	    4
+16	1, 2, 4, 8, 16	5
+17	1, 17	          2
+따라서, 13 + 14 + 15 - 16 + 17 = 43을 return 해야 합니다.
+*/
+
+
+import java.util.*;
+
+class Solution {
+    public int solution(int left, int right) {                  
+        int answer = 0; 
+        int cnt = 0; //약수 갯수 세아릴 변수
+        //약수의 갯수가 짝수인 수를 담을 ArrayList
+        ArrayList<Integer> temps1 = new ArrayList<>();
+        //약수의 갯수가 짝수인 수를 담을 ArrayList
+        ArrayList<Integer> temps2 = new ArrayList<>();
+        
+        //left이상 right+1미만 사이의 수들 중에
+        for(int i = left ; i < right + 1 ; i++){
+        //약수를 구하는 for반복문
+            for(int j = 1 ; j < i + 1 ; j++){
+                if(i % j == 0){
+                //해당 수의 약수 갯수 세아림
+                    cnt++;
+                }
+            }
+            //약수의 갯수가 짝수이면 temps1에 추가
+            if(cnt % 2 == 0){
+                temps1.add(i);
+                //약수의 갯수가 홀수이면 temps2에 추가
+            } else if(cnt % 2 == 1){
+                temps2.add(i);
+            }
+            //초기화
+            cnt = 0;
+        }
+        //짝수면 전부 더하고
+        for(int i = 0 ; i < temps1.size() ; i++){
+            answer += temps1.get(i);
+            
+        }
+        //홀수면 전부 
+        for(int i = 0 ; i < temps2.size() ; i++){
+            answer -= temps2.get(i);
+            
+        }
+        
+        return answer;
+    }
+}

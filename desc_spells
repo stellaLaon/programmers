@@ -1,0 +1,32 @@
+/*
+문자열 내림차순으로 배치하기
+문제 설명
+문자열 s에 나타나는 문자를 큰것부터 작은 순으로 정렬해 새로운 문자열을 리턴하는 함수, solution을 완성해주세요.
+s는 영문 대소문자로만 구성되어 있으며, 대문자는 소문자보다 작은 것으로 간주합니다.
+
+제한 사항
+str은 길이 1 이상인 문자열입니다.
+
+입출력     예
+s	         return
+"Zbcdefg"	"gfedcbZ"
+*/
+
+import java.util.*;
+class Solution {
+    public String solution(String s) {
+    //문자열의 spell들을 char[]배열로 옮김
+        char[] ch = s.toCharArray();
+        //spell들을 정렬
+        Arrays.sort(ch);
+        //문자열이 자주 변동될 것으로 예상되어 StringBuilder 생성
+        StringBuilder answer = new StringBuilder();
+        //역순 정렬하기 위한 for문 작성
+        for(int i = s.length()-1 ; i > -1 ; i--){
+            answer.append(ch[i]);
+        }
+        //StringBuilder를 String형으로 변환하여 반환
+        return answer.toString();
+    }
+}
+
