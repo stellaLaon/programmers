@@ -1,0 +1,87 @@
+/*
+숫자 문자열과 영단어
+문제 설명
+img1.png
+
+네오와 프로도가 숫자놀이를 하고 있습니다. 
+네오가 프로도에게 숫자를 건넬 때 
+일부 자릿수를 영단어로 바꾼 카드를 건네주면 프로도는 원래 숫자를 찾는 게임입니다.
+
+다음은 숫자의 일부 자릿수를 영단어로 바꾸는 예시입니다.
+
+1478 → "one4seveneight"
+234567 → "23four5six7"
+10203 → "1zerotwozero3"
+
+*/
+//wrong.1
+class Solution {
+    public int solution(String s) {
+    //반복문이 없어서 한번만 replace 됨
+        if(s.contains("zero")){
+            s.replace("zero", "0");
+        }else if(s.contains("one")){
+            s.replace("one", "1");
+        }else if(s.contains("two")){
+            s.replace("two", "2");
+        }else if(s.contains("three")){
+            s.replace("three", "3");
+        }else if(s.contains("four")){
+            s.replace("four", "4");
+        }else if(s.contains("five")){
+            s.replace("five", "5");
+        }else if(s.contains("six")){
+            s.replace("six", "6");
+        }else if(s.contains("seven")){
+            s.replace("seven", "7");
+        }else if(s.contains("eight")){
+            s.replace("eight", "8");
+        }else if(s.contains("nine")){
+            s.replace("nune", "9");
+        }
+        
+        return Integer.parseInt(s);
+    }
+}
+
+//answer.1
+/*
+s.replace()
+ .replace()
+ ...
+ .replace();
+이렇게 작성하면 대체 될 문자들은 다 실행한 후에 s에 저장하게 됨.
+*/
+class Solution {
+    public int solution(String s) {
+        s = s.replace("zero", "0")
+             .replace("one", "1")
+             .replace("two", "2")
+             .replace("three", "3")
+             .replace("four", "4")
+             .replace("five", "5")
+             .replace("six", "6")
+             .replace("seven", "7")
+             .replace("eight", "8")
+             .replace("nine", "9");
+        
+        return Integer.parseInt(s);
+    }
+}
+
+//answer2
+class Solution {
+    public int solution(String s) {
+    
+        String[] spell = {"zero", "one", "two", "three", "four", 
+        "five", "six", "seven", "eight", "nine"};
+        String[] ints = {"0", "1", "2", "3", "4", "5", 
+        "6", "7", "8", "9"};
+        for(int i = 0 ; i < 10 ; i++){
+            s = s.replace(spell[i], ints[i]);
+        }
+        
+        return Integer.parseInt(s);
+    }
+}
+
