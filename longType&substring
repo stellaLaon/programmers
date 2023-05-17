@@ -1,0 +1,43 @@
+/*
+크기가 작은 부분문자열
+문제 설명
+숫자로 이루어진 문자열 t와 p가 주어질 때, t에서 p와 길이가 같은 부분문자열 중에서, 
+이 부분문자열이 나타내는 수가 p가 나타내는 수보다 작거나 같은 것이 나오는 횟수를 
+return하는 함수 solution을 완성하세요.
+
+예를 들어, t="3141592"이고 p="271" 인 경우, 
+t의 길이가 3인 부분 문자열은 314, 141, 415, 159, 592입니다. 
+이 문자열이 나타내는 수 중 271보다 작거나 같은 수는 141, 159 2개 입니다.
+
+제한사항
+1 ≤ p의 길이 ≤ 18
+p의 길이 ≤ t의 길이 ≤ 10,000
+t와 p는 숫자로만 이루어진 문자열이며, 0으로 시작하지 않습니다.
+*/
+
+
+
+class Solution {
+    public int solution(String t, String p) {
+        int answer = 0;
+        //int로 진행하니 몇개의 테스트케이스에서 런타임 에러 발생, long으로 작성
+        long pValue = Long.parseLong(p); //대소 비교 위해 숫자로 변환
+        // t 문자열에서 길이가 p인(p 길이 <= t 길이) 문자 생성 갯수 = t 길이 - p 길이 + 1
+        int tpLen = t.length() - p.length() + 1;
+        
+        long[] temp = new long[tpLen];
+        //t문자열 중에서 길이가 p인 문자 생성하는 반복문
+        for (int i = 0; i < tpLen; i++) {
+            
+                temp[i] = Long.parseLong(t.substring(i, i + p.length()));
+        }
+        //temp의 원소가 p+1미만이면 answer를 1증가
+        for (long value : temp) {
+            if (value < pValue + 1) {
+                answer++;
+            }
+        }
+        
+        return answer;
+    }
+}
