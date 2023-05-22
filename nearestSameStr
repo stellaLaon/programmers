@@ -1,0 +1,77 @@
+/*
+가장 가까운 같은 글자
+star
+확인
+문제 설명
+문자열 s가 주어졌을 때, s의 각 위치마다 자신보다 앞에 나왔으면서, 
+자신과 가장 가까운 곳에 있는 같은 글자가 어디 있는지 알고 싶습니다.
+예를 들어, s="banana"라고 할 때,  
+각 글자들을 왼쪽부터 오른쪽으로 읽어 나가면서 다음과 같이 진행할 수 있습니다.
+
+b는 처음 나왔기 때문에 자신의 앞에 같은 글자가 없습니다. 이는 -1로 표현합니다.
+a는 처음 나왔기 때문에 자신의 앞에 같은 글자가 없습니다. 이는 -1로 표현합니다.
+n은 처음 나왔기 때문에 자신의 앞에 같은 글자가 없습니다. 이는 -1로 표현합니다.
+a는 자신보다 두 칸 앞에 a가 있습니다. 이는 2로 표현합니다.
+n도 자신보다 두 칸 앞에 n이 있습니다. 이는 2로 표현합니다.
+a는 자신보다 두 칸, 네 칸 앞에 a가 있습니다. 이 중 가까운 것은 두 칸 앞이고, 
+이는 2로 표현합니다.
+따라서 최종 결과물은 [-1, -1, -1, 2, 2, 2]가 됩니다.
+
+문자열 s이 주어질 때, 위와 같이 정의된 연산을 수행하는 함수 solution을 완성해주세요.
+*/
+
+//wrong1 : contains메소드는 char[]에 적용할 수 없다. 직접 구현해야한다.
+class Solution {
+    public int[] solution(String s) {
+        int i = 0; int sLen = s.length();
+        int[] answer = new int[sLen];
+        char[] tempCh = new char[sLen];
+        for(char ch : s.toCharArray()){
+            if(!tempCh.contains(ch)){
+                answer[i] = -1;
+            } else{
+                for(int j = i ; j > 0 ; j--){
+                    if(tempCh[j] == ch){
+                        answer[i] = j;
+                        break;
+                    }
+                    
+                }
+            }i++;
+        }
+        
+        return answer;
+    }
+}
+
+//answer1 : 중복값 여부 확인할거면 검증여부 데이터 저장을 HashMap으로 사용하는게 좋다.
+
+import java.util.*;
+
+class Solution {
+    public int[] solution(String s) {
+        //반환할 answer[]의 크기와 반복문을 위한 int변수
+        int sLen = s.length(); 
+        int[] answer = new int[sLen];
+        //s의spelling들을 담은 배열
+        char[] spells = s.toCharArray();
+        //이미 검사한 spelling인지 확인하기 위한 HashMap
+        Map<Character, Integer> tempMap = new HashMap<>();
+
+        for (int i = 0; i < sLen; i++) {
+            char ch = spells[i];
+            //이미 검사한 값이면
+            if (tempMap.containsKey(ch)) {
+                //현재 index - 같은 ch의 기존(마지막) index
+                answer[i] = i - tempMap.get(ch);
+            //검사하지 않았던 값이면 answer에 -1을 저장
+            } else {
+                answer[i] = -1;
+            }
+            //검사한 값과 index를 저장. 중복값이면 뒤의 index만 value로 저장됨.
+            tempMap.put(ch, i);
+        }
+
+        return answer;
+    }
+}
