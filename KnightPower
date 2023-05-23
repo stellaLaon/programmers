@@ -1,0 +1,75 @@
+/*
+입출력 예 설명
+입출력 예 #1
+
+1부터 5까지의 약수의 개수는 순서대로 [1, 2, 2, 3, 2]개입니다. 
+모두 공격력 제한 수치인 3을 넘지 않기 때문에
+필요한 철의 무게는 해당 수들의 합인 10이 됩니다. 
+따라서 10을 return 합니다.
+
+입출력 예 #2
+
+1부터 10까지의 약수의 개수는 순서대로 
+[1, 2, 2, 3, 2, 4, 2, 4, 3, 4]개입니다. 
+공격력의 제한수치가 3이기 때문에,
+6, 8, 10번 기사는 공격력이 2인 무기를 구매합니다. 
+따라서 해당 수들의 합인 21을 return 합니다.
+
+*/
+
+
+//wrong1 (실행 시간 초과 
+//-> 소수 갯수 구하는 부분을 에라토스테네스의 체로 변경,
+//prmCnt배열 삭제하고 divisorCount변수로 )
+class Solution {
+    public int solution(int number, int limit, int power) {
+        int answer = 0; int[] prmCnt = new int[number];
+        //이중for문을 사용해서 number이하의 숫자들의 약수 갯수 구하기
+        for(int i = 1 ; i < number+1 ; i++){
+            for(int j = 1 ; j < i+1 ; j++){
+                if( i % j == 0){
+                    prmCnt[i-1]++;
+                }
+            }
+            //약수의 갯수가 limit를 초과하면 power를 answer에 더함
+            if(prmCnt[i-1] > limit){
+                answer += power;
+            //약수의 갯수가 limit를 초과하지 않으면 약수의 갯수를 answer에 더함
+            }else{
+                answer += prmCnt[i-1];
+            }
+        }
+        
+        
+        return answer;
+    }
+}
+
+//answer
+class Solution {
+    public int solution(int number, int limit, int power) {
+        int answer = 0;
+        
+        for (int i = 1; i <= number; i++) {
+            int divisorCount = 0;
+            for (int j = 1; j <= Math.sqrt(i); j++) {
+                if (i % j == 0) {
+                    divisorCount++;
+                    // j와 중복되지 않는 약수인 경우 추가로 개수를 증가시킴
+                    if (j != i / j) { 
+                        divisorCount++;
+                    }
+                }
+            }
+
+            if (divisorCount > limit) {
+                answer += power;
+            } else {
+                answer += divisorCount;
+            }
+        }
+        
+        return answer;
+    }
+}
+
