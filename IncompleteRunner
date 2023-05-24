@@ -1,0 +1,61 @@
+/*완주하지 못한 선수
+입출력 예
+participant	                                        completion	                                return
+["leo", "kiki", "eden"]	                            ["eden", "kiki"]	                          "leo"
+["marina", "josipa", "nikola", "vinko", "filipa"]	  ["josipa", "filipa", "marina", "nikola"]	  "vinko"
+["mislav", "stanko", "mislav", "ana"]	               ["stanko", "ana", "mislav"]	              "mislav"
+
+*/
+
+//wrong1 : 답은 맞으나 시간초과/
+
+class Solution {
+    public String solution(String[] participant, String[] completion) {
+        String answer = "";
+        //두 배열의 원소를 이중for문으로 비교하고, 일치할 경우에는 ""를 사용하여 원소를 지움
+        for(int i = 0 ; i < participant.length ; i++){
+            for(int j = 0 ; j < completion.length ; j++){
+                if(participant[i].equals(completion[j])){
+                    participant[i] = "";
+                    completion[j] = "";
+                }
+            }
+        }
+        //participant[]의 원소가 ""이 아닐 경우 answer에 추가
+        for(String str : participant){
+            if(!str.equals("")){
+                answer += str;
+            }    
+        }
+        
+        return answer;
+        
+    }
+}
+
+//answer: sort를 사용하여 이중for문, 향상for문 사용않음
+
+import java.util.*;
+
+class Solution {
+    public String solution(String[] participant, String[] completion) {
+        String answer = ""; 
+        Arrays.sort(participant); Arrays.sort(completion);
+        //completion의 길이는 participant의 길이보다 1 작습니다.
+        //->늘 미완주자는 1명 입니다.
+        for(int i = 0 ;  i < completion.length ; i++){
+            if(!participant[i].equals(completion[i])){
+                answer = participant[i];
+                //한명만 찾으면 되므로 break를 사용하여 for문 탈출
+                break;
+            }
+        }
+        //위의 for문에서 미완주자 못 찾았다면, participant[]의 가장 끝에 있는 원소가 미완주자.
+        if(answer == ""){
+            answer = participant[participant.length-1];
+        }
+            
+        return answer;
+        
+    }
+}
